@@ -12,7 +12,7 @@
         </ul>
         <h2>Installation</h2>
         <p>1. <strong>Klone das Repository</strong>:</p>
-        <pre><code>git clone https://github.com/deinbenutzername/deinrepository.git</code></pre>
+        <pre><code>git clone https://github.com/Vincent-Goerner/Join.git</code></pre>
         <p>2. <strong>Öffne die index.html Datei</strong>:</p>
         <pre><code>open index.html</code></pre>
         <h2>Verwendung</h2>
