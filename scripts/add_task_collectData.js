@@ -1,4 +1,4 @@
-let TASKS_URL = "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+let TASKS_URL = "https://join-judith-default-rtdb.firebaseio.com/tasks";
 
 let taskCategory = "";
 
@@ -103,17 +103,11 @@ function getCategory() {
  * @returns {string} The priority level: "Urgent", "Medium", or "Low".
  */
 function getActivePriority() {
-  if (
-    document.querySelector("#boxUrgent").classList.contains("urgent_box_active")
-  ) {
+  if (document.querySelector("#boxUrgent").classList.contains("urgent_box_active")) {
     return "Urgent";
-  } else if (
-    document.querySelector("#boxMedium").classList.contains("medium_box_active")
-  ) {
+  } else if (document.querySelector("#boxMedium").classList.contains("medium_box_active")) {
     return "Medium";
-  } else if (
-    document.querySelector("#boxLow").classList.contains("low_box_active")
-  ) {
+  } else if (document.querySelector("#boxLow").classList.contains("low_box_active")) {
     return "Low";
   } else {
     return "Medium";
@@ -126,21 +120,11 @@ function getActivePriority() {
  * @returns {string} The edited priority level: "Urgent", "Medium", or "Low".
  */
 function getActivePriorityEdit() {
-  if (
-    document
-      .querySelector("#boxUrgentEdit")
-      .classList.contains("urgent_box_active")
-  ) {
+  if (document.querySelector("#boxUrgentEdit").classList.contains("urgent_box_active")) {
     return "Urgent";
-  } else if (
-    document
-      .querySelector("#boxMediumEdit")
-      .classList.contains("medium_box_active")
-  ) {
+  } else if (document.querySelector("#boxMediumEdit").classList.contains("medium_box_active")) {
     return "Medium";
-  } else if (
-    document.querySelector("#boxLowEdit").classList.contains("low_box_active")
-  ) {
+  } else if (document.querySelector("#boxLowEdit").classList.contains("low_box_active")) {
     return "Low";
   } else {
     return "Medium";

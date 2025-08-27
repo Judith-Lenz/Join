@@ -1,7 +1,7 @@
 let contactKeys = [];
 let lastSelected;
 let lastContactCreat;
-let BASE_URL = `https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/contacts`;
+let BASE_URL = `https://join-judith-default-rtdb.firebaseio.com/contacts`;
 let selectedContacts = [];
 
 /**
@@ -38,8 +38,10 @@ async function getContactData() {
         name: allContacts[allKeys[index]]["name"],
         email: allContacts[allKeys[index]]["email"],
         number: allContacts[allKeys[index]]["number"],
-        bgcolor: allContacts[allKeys[index]]["bgcolor"]});
-    }contactKeys.sort((a, b) => a.name.localeCompare(b.name));
+        bgcolor: allContacts[allKeys[index]]["bgcolor"],
+      });
+    }
+    contactKeys.sort((a, b) => a.name.localeCompare(b.name));
   }
 }
 
@@ -115,7 +117,9 @@ function toggleDetailClasses(i) {
       document.getElementById(`${lastSelected}`).classList.toggle("contacts-overview-contact-unselected");
       document.getElementById(`${i}`).classList.toggle("contacts-overview-contact-selected");
       document.getElementById(`${i}`).classList.toggle("contacts-overview-contact-unselected");
-      lastSelected = i;}}
+      lastSelected = i;
+    }
+  }
 }
 
 /**
@@ -125,7 +129,22 @@ function toggleDetailClasses(i) {
  * @returns {string} A randomly selected color from the predefined list.
  */
 function generateColor() {
-  const colors = ["lightcoral", "green", "blueviolet", "lightblue", "darkmagenta", "orangered", "purple", "lightgreen", "indigo", "teal", "peru", "midnightblue", "aquamarine", "chartreuse"];
+  const colors = [
+    "lightcoral",
+    "green",
+    "blueviolet",
+    "lightblue",
+    "darkmagenta",
+    "orangered",
+    "purple",
+    "lightgreen",
+    "indigo",
+    "teal",
+    "peru",
+    "midnightblue",
+    "aquamarine",
+    "chartreuse",
+  ];
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
 }
@@ -161,14 +180,10 @@ function contactEditSuccesfull() {
  */
 async function contactDeleteInit(i) {
   let contactId = contactKeys[i].id;
-  let selectedContactElement = document.getElementById(
-    `selected-contact-${contactId}`
-  );
+  let selectedContactElement = document.getElementById(`selected-contact-${contactId}`);
   if (selectedContactElement) {
     selectedContactElement.remove();
-    selectedContacts = selectedContacts.filter(
-      (contact) => contact.id !== contactId
-    );
+    selectedContacts = selectedContacts.filter((contact) => contact.id !== contactId);
     saveSelectedContactsToSession();
   }
   await deleteContact(i);
@@ -204,12 +219,8 @@ async function deleteContact(i) {
 function contactShowEditOption(event) {
   if (event) {
     event.stopPropagation();
-    document
-      .getElementById("contact-details-option")
-      .classList.add("contacts-d-more-options-show");
+    document.getElementById("contact-details-option").classList.add("contacts-d-more-options-show");
   } else {
-    document
-      .getElementById("contact-details-option")
-      .classList.remove("contacts-d-more-options-show");
+    document.getElementById("contact-details-option").classList.remove("contacts-d-more-options-show");
   }
 }

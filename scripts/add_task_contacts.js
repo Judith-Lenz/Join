@@ -1,4 +1,4 @@
-let CONTACTS_URL = "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/contacts";
+let CONTACTS_URL = "https://join-judith-default-rtdb.firebaseio.com/contacts";
 
 contactsAddTask = [];
 let selectedContacts = [];
@@ -16,10 +16,7 @@ async function getContacts() {
     contactsAddTask.sort((a, b) => a.name.localeCompare(b.name));
 
     let userName = sessionStorage.getItem("userName");
-    if (
-      userName &&
-      !contactsAddTask.some((contact) => contact.name === `${userName} (You)`)
-    ) {
+    if (userName && !contactsAddTask.some((contact) => contact.name === `${userName} (You)`)) {
       let userContact = {
         name: `${userName} (You)`,
         bgcolor: "#29abe2",
@@ -61,8 +58,7 @@ function renderContacts() {
   let contactContainer = document.getElementById("contacts_container");
   contactContainer.innerHTML = "";
   contactsAddTask.forEach((contact, i) => {
-    let { contactClass, checkboxImage, contactTextColorClass, initials } =
-      getContactStyles(contact);
+    let { contactClass, checkboxImage, contactTextColorClass, initials } = getContactStyles(contact);
     contactContainer.innerHTML += getContactHTML(
       contact,
       i,
@@ -99,14 +95,7 @@ function getContactStyles(contact) {
  * @param {string} initials - The initials to display in the contact's avatar.
  * @returns {string} The HTML string for the contact element.
  */
-function getContactHTML(
-  contact,
-  index,
-  contactClass,
-  checkboxImage,
-  contactTextColorClass,
-  initials
-) {
+function getContactHTML(contact, index, contactClass, checkboxImage, contactTextColorClass, initials) {
   return `
     <div class="contact_container_element ${contactClass}" id="contact_${index}" onclick="toggleContact(${index})">
       <div style="display: flex; align-items: center; gap: 20px;" class="${contactTextColorClass}">
@@ -146,12 +135,7 @@ function toggleContact(index) {
  * @param {HTMLElement} textContainer - The container element for the contact's text.
  * @param {HTMLElement} checkboxImage - The checkbox image element for the contact.
  */
-function deselectContact(
-  contact,
-  contactElement,
-  textContainer,
-  checkboxImage
-) {
+function deselectContact(contact, contactElement, textContainer, checkboxImage) {
   contactElement.classList.remove("contact-selected");
   contactElement.classList.add("contact-unselected");
   textContainer.classList.remove("text-white");
@@ -223,9 +207,7 @@ function loadSelectedContactsFromSession() {
   let savedContacts = sessionStorage.getItem("selectedContacts");
   if (savedContacts) {
     let tempSelectedContacts = JSON.parse(savedContacts);
-    selectedContacts = tempSelectedContacts.filter((contact) =>
-      contactsAddTask.some((c) => c.name === contact.name)
-    );
+    selectedContacts = tempSelectedContacts.filter((contact) => contactsAddTask.some((c) => c.name === contact.name));
     saveSelectedContactsToSession();
     restoreContactsState();
     displaySelectedContacts();
@@ -293,8 +275,7 @@ function renderFilteredContacts(filteredContacts) {
  */
 function renderContact(contact, container) {
   const originalIndex = contactsAddTask.indexOf(contact);
-  const { backgroundColor, checkboxImage, contactTextColor, contactClass } =
-    getContactStyle(contact);
+  const { backgroundColor, checkboxImage, contactTextColor, contactClass } = getContactStyle(contact);
   const initials = getInitials(contact.name.replace(" (You)", ""));
   container.innerHTML += getFilteredContactHTML(
     originalIndex,
@@ -342,15 +323,7 @@ function renderNoContactsMessage(container) {
  * @param {string} initials - The initials to display in the contact's avatar.
  * @returns {string} The HTML string for the contact element.
  */
-function getFilteredContactHTML(
-  index,
-  contact,
-  contactClass,
-  backgroundColor,
-  textColor,
-  checkboxImage,
-  initials
-) {
+function getFilteredContactHTML(index, contact, contactClass, backgroundColor, textColor, checkboxImage, initials) {
   return `
     <div class="contact_container_element ${contactClass}" id="contact_${index}" style="background-color: ${backgroundColor}" onclick="toggleContact(${index})">
       <div style="display: flex; align-items: center; gap: 20px; color: ${textColor}">

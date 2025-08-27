@@ -1,9 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  push,
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
 /**
  * Firebase configuration object.
@@ -16,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "join-337-userlist.appspot.com",
   messagingSenderId: "742031210353",
   appId: "1:742031210353:web:0829ecb28f78c0971868d0",
-  databaseURL: "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/",
+  databaseURL: "https://join-judith-default-rtdb.firebaseio.com",
 };
 
 const app = initializeApp(firebaseConfig);

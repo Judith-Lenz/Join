@@ -1,7 +1,7 @@
-const BASE_URL_TASKS = "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+const BASE_URL_TASKS = "https://join-judith-default-rtdb.firebaseio.com/tasks";
 let tasks = [];
 
-const BASE_URL_ASSIGNED = "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+const BASE_URL_ASSIGNED = "https://join-judith-default-rtdb.firebaseio.com/tasks";
 let bigassigned = [];
 
 let draggedTo;
@@ -192,8 +192,8 @@ function clearAndFilterTasks(searchValue) {
 
   const filteredTasks = tasks.filter(
     (task) =>
-    (task.title && task.title.toLowerCase().includes(searchValue)) || 
-    (task.description && task.description.toLowerCase().includes(searchValue))
+      (task.title && task.title.toLowerCase().includes(searchValue)) ||
+      (task.description && task.description.toLowerCase().includes(searchValue))
   );
 
   renderFilteredTasks(filteredTasks);
@@ -224,14 +224,10 @@ function renderFilteredTasks(filteredTasks) {
     }
   });
 
-  if (!taskPresence.todo)
-    document.getElementById("small_card_todo").innerHTML = renderNoTasksToDo();
-  if (!taskPresence.progress)
-    document.getElementById("small_card_progress").innerHTML = renderNoTasksProgress();
-  if (!taskPresence.await)
-    document.getElementById("small_card_await").innerHTML = renderNoTasksAwait();
-  if (!taskPresence.done)
-    document.getElementById("small_card_done").innerHTML = renderNoTaskDone();
+  if (!taskPresence.todo) document.getElementById("small_card_todo").innerHTML = renderNoTasksToDo();
+  if (!taskPresence.progress) document.getElementById("small_card_progress").innerHTML = renderNoTasksProgress();
+  if (!taskPresence.await) document.getElementById("small_card_await").innerHTML = renderNoTasksAwait();
+  if (!taskPresence.done) document.getElementById("small_card_done").innerHTML = renderNoTaskDone();
 }
 
 /**

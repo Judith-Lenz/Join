@@ -1,9 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  get,
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
 /**
  * Firebase configuration object.
@@ -16,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "join-337-userlist.appspot.com",
   messagingSenderId: "742031210353",
   appId: "1:742031210353:web:0829ecb28f78c0971868d0",
-  databaseURL: "https://join337-40cd8-default-rtdb.europe-west1.firebasedatabase.app/",
+  databaseURL: "https://join-judith-default-rtdb.firebaseio.com",
 };
 
 /**
@@ -135,13 +131,7 @@ async function validateInputs() {
   isValid = validateEmail(email, emailValue) && isValid;
   isValid = validatePassword(password, passwordValue, emailValue) && isValid;
 
-  isValid = await validateEmailAndCredentials(
-    email,
-    password,
-    emailValue,
-    passwordValue,
-    isValid
-  );
+  isValid = await validateEmailAndCredentials(email, password, emailValue, passwordValue, isValid);
 
   return isValid;
 }
@@ -160,22 +150,9 @@ async function validateInputs() {
  * @param {boolean} isValid - Indicates if the previous validations passed.
  * @returns {Promise<boolean>} - Returns a promise that resolves to true if credentials are valid, false otherwise.
  */
-async function validateEmailAndCredentials(
-  email,
-  password,
-  emailValue,
-  passwordValue,
-  isValid
-) {
+async function validateEmailAndCredentials(email, password, emailValue, passwordValue, isValid) {
   if (isValid && emailValue !== "" && isValidEmail(emailValue)) {
-    return (
-      (await checkUserCredentials(
-        email,
-        password,
-        emailValue,
-        passwordValue
-      )) && isValid
-    );
+    return (await checkUserCredentials(email, password, emailValue, passwordValue)) && isValid;
   }
   return isValid;
 }
@@ -190,10 +167,7 @@ async function validateEmailAndCredentials(
  * @returns {boolean} - Returns true if the email is valid, false otherwise.
  */
 function validateEmail(emailElement, emailValue) {
-  return (
-    validateEmailProvided(emailElement, emailValue) &&
-    validateEmailFormat(emailElement, emailValue)
-  );
+  return validateEmailProvided(emailElement, emailValue) && validateEmailFormat(emailElement, emailValue);
 }
 
 /**
@@ -257,8 +231,7 @@ function validatePassword(passwordElement, passwordValue, emailValue) {
  */
 function validatePasswordProvided(passwordElement, passwordValue, emailValue) {
   if (passwordValue === "") {
-    const errorMessage =
-      emailValue !== "" ? "Provide the password." : "Password is required.";
+    const errorMessage = emailValue !== "" ? "Provide the password." : "Password is required.";
     setError(passwordElement, errorMessage);
     return false;
   } else {
@@ -277,18 +250,8 @@ function validatePasswordProvided(passwordElement, passwordValue, emailValue) {
  * @param {string} passwordValue - The trimmed password value.
  * @returns {Promise<boolean>} - Returns a promise that resolves to true if the credentials are valid, false otherwise.
  */
-async function checkUserCredentials(
-  emailElement,
-  passwordElement,
-  emailValue,
-  passwordValue
-) {
-  return await validateUserCredentials(
-    emailElement,
-    passwordElement,
-    emailValue,
-    passwordValue
-  );
+async function checkUserCredentials(emailElement, passwordElement, emailValue, passwordValue) {
+  return await validateUserCredentials(emailElement, passwordElement, emailValue, passwordValue);
 }
 
 /**
@@ -301,12 +264,7 @@ async function checkUserCredentials(
  * @param {string} passwordValue - The trimmed password value.
  * @returns {Promise<boolean>} - Returns a promise that resolves to true if validation passes, false otherwise.
  */
-async function validateUserCredentials(
-  emailElement,
-  passwordElement,
-  emailValue,
-  passwordValue
-) {
+async function validateUserCredentials(emailElement, passwordElement, emailValue, passwordValue) {
   const result = await validateUser(emailValue, passwordValue);
   return handleValidationResult(emailElement, passwordElement, result);
 }
@@ -429,9 +387,7 @@ function handleRememberMe(email, password) {
 function authenticateUser(email, password) {
   validateUser(email, password)
     .then((result) => handleAuthenticationResult(result))
-    .catch(() =>
-      showError("Error while trying to authenticate. Please try again later.")
-    );
+    .catch(() => showError("Error while trying to authenticate. Please try again later."));
 }
 
 /**
@@ -540,9 +496,7 @@ function goTosignup() {
   window.location.href = "signup.html";
 }
 
-document
-  .getElementById("guestLoginButton")
-  .addEventListener("click", guestLogin);
+document.getElementById("guestLoginButton").addEventListener("click", guestLogin);
 
 /**
  * Handles the guest login event.
